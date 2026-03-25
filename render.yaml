@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: multiplayer-rps
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /health
