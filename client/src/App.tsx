@@ -19,7 +19,16 @@ function getSocketUrl(): string {
     return "http://localhost:3001";
   }
 
-  return `${window.location.protocol}//${window.location.hostname}:3001`;
+  const { hostname, origin, protocol, port } = window.location;
+  const isLocalHost =
+    hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
+  const isViteDevPort = port === "5173" || port === "4173";
+
+  if (isLocalHost || isViteDevPort) {
+    return `${protocol}//${hostname}:3001`;
+  }
+
+  return origin;
 }
 
 function getOpponentSlot(slot: PlayerSlot): PlayerSlot {
